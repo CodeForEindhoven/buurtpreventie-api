@@ -4,6 +4,26 @@ String.prototype.toProperCase = function () {
     });
 };
 
+// See http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543 for details. Needs more work!
+var ensureAuthorized = function(req, res, next) {
+    var bearerToken;
+    var bearerHeader = req.headers.authorization;
+    if (bearerHeader) {
+        var bearer = bearerHeader.split(" ");
+        bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+      if(req.query.token) {
+        console.log('Entered the loophole!');
+        req.token = req.query.token;
+        next();
+      } else {
+        res.status(403).json({type: 'forbidden', message: 'Sorry, cannot let you in'});
+      }
+    }
+};
+
 /**
  * Compact arrays with null entries; delete keys from objects with null value
  *
@@ -23,3 +43,4 @@ var removeNulls = function(data) {
 };
 
 exports.removeNulls = removeNulls;
+exports.ensureAuthorized = ensureAuthorized;

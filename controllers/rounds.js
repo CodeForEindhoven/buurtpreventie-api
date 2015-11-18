@@ -1,8 +1,9 @@
 var models = require('../models');
 var express = require('express');
+var util = require('../helpers/util.js');
 var router = express.Router();
 
-router.route('/api/rounds').get(function(req, res) {
+router.route('/api/rounds').all(util.ensureAuthorized).get(function(req, res) {
   models.Round.findAll({
     attributes: [
       ['datum', 'date'],
@@ -28,7 +29,7 @@ router.route('/api/rounds').get(function(req, res) {
   });
 });
 
-router.route('/api/round/:id').get(function(req, res) {
+router.route('/api/round/:id').all(util.ensureAuthorized).get(function(req, res) {
   models.Round.findOne({
     include: [models.User, models.Remark],
     where: {
