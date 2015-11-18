@@ -29,7 +29,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
 app.use(require('./controllers'));
 app.use(function(req, res) {
   res.status(404).json({
@@ -37,12 +42,7 @@ app.use(function(req, res) {
     message: req.method + ' not available for this endpoint'
   });
 });
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-});
+
 app.use(clientErrorHandler);
 if ('development' == env) {
   app.locals.pretty = true;
