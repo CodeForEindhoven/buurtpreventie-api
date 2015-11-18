@@ -1,4 +1,5 @@
 function clientErrorHandler(err, req, res, next) {
+  console.log(err);
   var errobj = {};
   errobj.url = req.protocol + "://" + req.get('host') + req.url;
   errobj.body = req.body;

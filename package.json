@@ -36,6 +36,7 @@
     "compression": "^1.4.3",
     "errorhandler": "^1.4.2",
     "express": "4.13.3",
+    "mysql": "^2.9.0",
     "request": "*",
     "sequelize": "^3.13.0"
   },
