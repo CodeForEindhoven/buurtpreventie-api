@@ -38,6 +38,7 @@
     "express": "4.13.3",
     "jsonwebtoken": "^5.4.1",
     "mysql": "^2.9.0",
+    "object-assign": "^4.0.1",
     "request": "*",
     "sequelize": "^3.13.0"
   },
